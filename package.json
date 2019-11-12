@@ -14,9 +14,12 @@
       "express": "^4.15.4",
       "pg": "^7.3.0",
       "reflect-metadata": "^0.1.10",
-      "typeorm": "0.2.20"
+      "tslint": "^5.20.1",
+      "typeorm": "0.2.20",
+      "winston": "^3.2.1"
    },
    "scripts": {
-      "start": "ts-node -r tsconfig-paths/register src/index.ts"
+      "start": "ts-node -r tsconfig-paths/register src/index.ts",
+      "lint": "tslint -c tslint.json 'src/**/*.ts'"
    }
 }

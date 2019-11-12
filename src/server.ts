@@ -1,5 +1,5 @@
-import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as express from 'express';
 import { Server as HttpServer } from 'http';
 
 import noteRouter from '@routes/NoteRoutes';
@@ -18,14 +18,6 @@ export default class Server {
 		this.applyRoutes();
 	}
 
-	private applyMiddleware() {
-		this.app.use(bodyParser.json());
-	}
-
-	private applyRoutes() {
-		this.app.use('/api', noteRouter);
-	}
-
 	public serve(port: number): Promise<Address> {
 		return new Promise<Address>((resolve, reject) => {
 			this.server = this.app
@@ -34,7 +26,15 @@ export default class Server {
 				})
 				.listen(port, () => {
 					resolve(this.server.address());
-			})
+			});
 		});
+	}
+
+	private applyMiddleware() {
+		this.app.use(bodyParser.json());
+	}
+
+	private applyRoutes() {
+		this.app.use('/api', noteRouter);
 	}
 }

@@ -1,5 +1,5 @@
-import {Router} from 'express';
 import controller from '@controller/NoteController';
+import {Router} from 'express';
 const router = Router();
 
 router.post('/create', controller.createNote);
