@@ -2,7 +2,7 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import { Server as HttpServer } from 'http';
 
-import noteRouter from '@routes/NoteRoutes';
+import notesRouter from '@routes/NoteRoutes';
 
 export interface Address {
 	port: number;
@@ -35,6 +35,6 @@ export default class Server {
 	}
 
 	private applyRoutes() {
-		this.app.use('/api', noteRouter);
+		this.app.use('/api', notesRouter);
 	}
 }
