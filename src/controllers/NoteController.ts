@@ -53,6 +53,6 @@ export default class NoteController {
 			query = query.andWhere('note.dateCreated < :date', { date: dateTo });
 		}
 
-		res.status(200).json(await query.getMany());
+		res.status(200).json(await query.orderBy('note.id').getMany());
 	}
 }

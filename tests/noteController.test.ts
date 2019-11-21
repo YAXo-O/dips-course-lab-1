@@ -1,32 +1,15 @@
 import NoteController from '@controller/NoteController';
 import { Request, Response } from 'express';
-
-const notesList = [
-	{
-		dateCreated: new Date('1997-02-23'),
-		id: 1,
-		text: 'First note',
-	},
-	{
-		dateCreated: new Date('1999-11-24'),
-		id: 2,
-		text: 'Second note',
-	},
-];
+import { allNotesList, createdNote, repository } from './mocks';
 
 jest.mock('typeorm', () => ({
 	Column: () => jest.fn(),
 	Entity: () => jest.fn(),
 	PrimaryGeneratedColumn: () => jest.fn(),
-	getRepository: jest.fn().mockReturnValue({
-		find: () => Promise.resolve(notesList),
-		save: () => Promise.resolve({
-			dateCreated: new Date('1963-11-23'),
-			id: 1,
-			text: 'Some note text',
-		}),
-	}),
+	getRepository: jest.fn(),
 }));
+
+import { getRepository } from 'typeorm';
 
 describe('Note Controller tests', () => {
 	it('Get notes', async () => {
@@ -35,10 +18,13 @@ describe('Note Controller tests', () => {
 		response.status = jest.fn().mockReturnValue(response);
 		response.send = jest.fn().mockReturnValue(response);
 
+		// @ts-ignore
+		getRepository.mockReturnValueOnce(repository);
+
 		await NoteController.getNotes(request as any, response as any);
 
 		expect(response.status).toBeCalledWith(200);
-		expect(response.send).toBeCalledWith(notesList);
+		expect(response.send).toBeCalledWith(allNotesList);
 	});
 
 	it('Create note: valid note', async () => {
@@ -51,14 +37,13 @@ describe('Note Controller tests', () => {
 		response.status = jest.fn().mockReturnValue(response);
 		response.json = jest.fn().mockReturnValue(response);
 
+		// @ts-ignore
+		getRepository.mockReturnValueOnce(repository);
+
 		await NoteController.createNote(request as any, response as any);
 
 		expect(response.status).toBeCalledWith(201);
-		expect(response.json).toBeCalledWith({
-			dateCreated: new Date('1963-11-23'),
-			id: 1,
-			text: 'Some note text',
-		});
+		expect(response.json).toBeCalledWith(createdNote);
 	});
 
 	it('Create note: empty note', async () => {
@@ -70,6 +55,9 @@ describe('Note Controller tests', () => {
 		const response: Partial<Response> = {};
 		response.status = jest.fn().mockReturnValue(response);
 		response.json = jest.fn().mockReturnValue(response);
+
+		// @ts-ignore
+		getRepository.mockReturnValueOnce(repository);
 
 		await NoteController.createNote(request as any, response as any);
 
@@ -102,9 +90,12 @@ describe('Note Controller tests', () => {
 		response.status = jest.fn().mockReturnValue(response);
 		response.json = jest.fn().mockReturnValue(response);
 
+		// @ts-ignore
+		getRepository.mockReturnValueOnce(repository);
+
 		await NoteController.getFilteredNotes(request as any, response as any);
 
 		expect(response.status).toBeCalledWith(200);
-		expect(response.json).toBeCalledWith(notesList);
+		expect(response.json).toBeCalledWith(allNotesList);
 	});
 });

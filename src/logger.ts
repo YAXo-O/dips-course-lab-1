@@ -9,6 +9,6 @@ export const logger = createLogger({
 			),
 			level: 'info',
 		}),
-		new transports.File({ filename: '../logs/log.log' }),
+		new transports.File({ filename: './logs/log.log' }),
 	],
 });
