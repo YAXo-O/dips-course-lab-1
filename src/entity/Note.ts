@@ -1,13 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export default class Note {
-    @PrimaryGeneratedColumn()
-    id: number;
+	@PrimaryGeneratedColumn()
+	public id: number;
 
-    @Column('text')
-    text: string;
+	@Column('text')
+	public text: string;
 
-    @Column('timestamp')
-    dateCreated: Date;
+	@Column('timestamp')
+	public dateCreated: Date;
 }

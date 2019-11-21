@@ -1,9 +1,10 @@
+import Controller from '@controller/NoteController';
 import {Router} from 'express';
-import controller from '@controller/NoteController';
+
 const router = Router();
 
-router.post('/create', controller.createNote);
-router.get('/get', controller.getNotes);
-router.post('/get', controller.getFilteredNotes);
+router.post('/create', Controller.createNote);
+router.get('/get', Controller.getNotes);
+router.post('/get', Controller.getFilteredNotes);
 
 export default router;

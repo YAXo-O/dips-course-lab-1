@@ -3,7 +3,10 @@
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
+      "@types/jest": "^24.0.23",
       "@types/node": "^8.0.29",
+      "jest": "^24.9.0",
+      "ts-jest": "^24.1.0",
       "ts-node": "3.3.0",
       "tsconfig-paths": "^3.9.0",
       "typescript": "3.3.3333"
@@ -14,9 +17,14 @@
       "express": "^4.15.4",
       "pg": "^7.3.0",
       "reflect-metadata": "^0.1.10",
-      "typeorm": "0.2.20"
+      "tslint": "^5.20.1",
+      "typeorm": "0.2.20",
+      "winston": "^3.2.1"
    },
    "scripts": {
-      "start": "ts-node -r tsconfig-paths/register src/index.ts"
+      "start": "ts-node -r tsconfig-paths/register src/index.ts",
+      "lint": "tslint -c tslint.json 'src/**/*.ts'",
+      "test": "jest", 
+	  "coverage": "jest --coverage"
    }
 }
