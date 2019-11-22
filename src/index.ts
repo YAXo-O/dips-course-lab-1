@@ -1,11 +1,12 @@
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
+import config from '../ormconfig';
 import { logger } from './logger';
 import Server, { Address } from './server';
 
 const port: number = +process.env.PORT || 4242;
 
-createConnection()
+createConnection(config as any)
 	.then(async (connection) => {
 		logger.info('Connection to database has been established');
 		const server = new Server();
